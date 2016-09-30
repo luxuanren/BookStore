@@ -1,0 +1,31 @@
+#frame{
+    height:50%;
+    width:100%;
+    padding-top: 100px;
+    padding-left: 600px;
+    position: fixed;
+}
+.focus{
+    border: 1px solid #f00;
+    background: #fcc;
+}
+body { font:12px/19px Arial, Helvetica, sans-serif; color:#666;}
+form div { margin:5px 0;}
+.sub { padding-left:100px;padding-top:10px;}
+.sub input { margin-right:10px; width:150px;}
+.formtips{width: 200px;margin:2px;padding:2px;}
+.int label { float:left; width:100px; text-align:right;}
+.int input { padding:1px 1px; border:1px solid #ccc;height:16px;width:150px;}
+.onError{
+    color: red;
+    background:white url(../img/reg3.gif) no-repeat 0 center;
+    padding-left:25px;
+}
+.onSuccess{
+    color: green;
+    background:white url(../img/reg4.gif) no-repeat 0 center;
+    padding-left:25px;
+}
+.high{
+    color:red;
+}

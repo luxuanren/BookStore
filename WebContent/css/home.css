@@ -1,0 +1,38 @@
+#frame{
+    height:100%;
+    width:100%;
+    padding-top: 100px;
+    padding-left: 600px;
+    position: fixed;
+    border: solid 1px black;
+}
+#userBar{
+    border: solid 1px black;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+#searchBar{
+    border: solid 1px black;
+    padding-bottom: 20px;
+    padding-top: 20px;
+}
+#content{
+    border: solid 1px skyblue;
+    padding-top: 20px;
+}
+#userBar label{
+    float: left;
+    width:200px;
+    background: sandybrown;
+}
+th,td{
+    width:150px;
+    height: 30px;
+    text-align: center;
+}
+tr{
+    border: solid beige;
+}
+.highlight{
+	color: FireBrick;
+}
