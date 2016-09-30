@@ -4,7 +4,7 @@
     pageEncoding="UTF-8"%>
 <jsp:useBean id="bookDb" class="com.market.beans.dao.BookDbBean" scope="request"></jsp:useBean>
 <%
-	String username = request.getParameter("username");
+	String username = (String)session.getAttribute("username");
 	String status = "";
 	if ( username == null){
 		username = "登录";
@@ -24,11 +24,7 @@
 <body>
 	<div id="frame">
         <div id="userBar">
-<<<<<<< HEAD
-            <label><%= username%></label>
-=======
             <label id="loginStatus" class="<%= status%>"><u><%= username%></u></label>
->>>>>>> feature
             <label>购物车</label>
         </div>
         <div id="searchBar">

@@ -5,17 +5,11 @@
 	String username = request.getParameter("username");
 	String password = request.getParameter("password");
 	if(userDb.findUser(username, password)){
-		%>
-			<jsp:forward page="home.jsp">
-				<jsp:param value="<%=request.getParameter(\"username\") %>" name="username"/>
-			</jsp:forward>
-		<%
+		session.setAttribute("username", username);
+		response.sendRedirect("home.jsp");
 	}else{
-		%>
-			<jsp:forward page="login.jsp">
-				<jsp:param value="invailed username or password" name="status"/>
-			</jsp:forward>
-		<%
+		session.setAttribute("status", "用户名或密码错误");
+		response.sendRedirect("login.jsp");
 	}
 
 %>
