@@ -2,8 +2,24 @@
  * Created by exuanlu on 9/27/2016.
  */
 $(function () {
-    $('tr:odd').css("background","#FFE4CA");
-    $('tr:even').css("background","#DFFFDF");
+	
+	if( $('#books tr').length == 0){
+		var $head = $('#head');
+		$head.empty();
+		var html = "<tr><td>没有相关结果</td></tr>";
+		$head.html(html);
+	}else{
+		$('tr:odd').css("background","#FFE4CA");
+		$('tr:even').css("background","#DFFFDF");
+	}
+	$('#doSearch').click(function(){
+		var value = $('input').val();
+		var reg = / +/gm;
+		if (value == "" || reg.test(value)){
+			return false;
+		}
+	});
+  
 
     $('#showAll').click(function () {
         $.post("../ajax/getAllbooks.jsp",function (data) {
@@ -31,10 +47,12 @@ $(function () {
     		location.href = "http://localhost:8080/BookStore/jsp/login.jsp";
     	}
     });
+    
     $('#userBar label').hover(function(){
     	$(this).toggleClass('highlight');
     },function(){
     	$(this).toggleClass('highlight');
     });
+    
 })
 

@@ -6,29 +6,62 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.sql.DataSource;
 
 import com.market.beans.BookBean;
 
-public class BookDbBean {
-	private DataSource dataSource;
+public class BookDbBean extends DbBean{
 	
 	public BookDbBean() throws NamingException {
-		Context context = new InitialContext();
-		dataSource = (DataSource) context.lookup("java:comp/env/jdbc/market");
+		super();
 	}
-	
 	public ArrayList<BookBean> getAllBooks() {
-		ArrayList<BookBean> list = new ArrayList<BookBean>();
-		String sql = "select * from book";
-		Connection connection;
+		Connection connection = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
 		try {
+			ArrayList<BookBean> list = new ArrayList<BookBean>();
+			String sql = "select * from book";
 			connection = dataSource.getConnection();
-			PreparedStatement ps = connection.prepareStatement(sql);
-			ResultSet rs = ps.executeQuery();
+			ps = connection.prepareStatement(sql);
+			rs = ps.executeQuery();
+			
+			while(rs.next()){
+				BookBean book = new BookBean();
+				book.setId(rs.getInt(1));
+				book.setTitle(rs.getString(2));
+				book.setAuthor(rs.getString(3));
+				book.setPulishDate(rs.getDate(4));
+				book.setPrice(rs.getFloat(5));
+				book.setAmount(rs.getInt(6));
+				list.add(book);
+			}
+			
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}finally{
+			closeResultSet(rs);
+			closePreparedStatement(ps);
+			closeConnection(connection);
+		}
+	
+	}
+	public ArrayList<BookBean> searchBooks(String key) {
+		Connection connection = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		try {
+			ArrayList<BookBean> list = new ArrayList<BookBean>();
+			String sql = "select * from book where title like concat('%',?,'%') or author like concat('%',?,'%')";
+			connection = dataSource.getConnection();
+			ps = connection.prepareStatement(sql);
+			ps.setString(1, key);
+			ps.setString(2, key);
+			rs = ps.executeQuery();
 			
 			while(rs.next()){
 				BookBean book = new BookBean();
@@ -44,8 +77,11 @@ public class BookDbBean {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
+		}finally{
+			closeResultSet(rs);
+			closePreparedStatement(ps);
+			closeConnection(connection);
 		}
-		
-		
+	
 	}
 }

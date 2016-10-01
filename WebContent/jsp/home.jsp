@@ -4,6 +4,7 @@
     pageEncoding="UTF-8"%>
 <jsp:useBean id="bookDb" class="com.market.beans.dao.BookDbBean" scope="request"></jsp:useBean>
 <%
+
 	String username = (String)session.getAttribute("username");
 	String status = "";
 	if ( username == null){
@@ -11,6 +12,16 @@
 	}else{
 		status = "login";
 	}
+	
+	ArrayList<BookBean> list = null;
+	String key = request.getParameter("key");
+	if (key != null){
+		key = new String(key.getBytes("ISO-8859-1"),"UTF-8");
+		list = bookDb.searchBooks(key);
+	}else{
+		list = bookDb.getAllBooks();
+	}
+	
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -28,13 +39,15 @@
             <label>购物车</label>
         </div>
         <div id="searchBar">
-            <input type="text">
-            <input id="search" type="button" value="搜索">
-            <input id="showAll" type="button" value="显示所有图书">
+        	<form action="home.jsp">
+        		<input id="input" name="key" type="text">
+	            <input id="doSearch" type="submit" value="搜索">
+	            <input id="showAll" type="button" value="显示所有图书">
+        	</form>
         </div>
         <div id="content">
             <table>
-                <thead>
+                <thead id="head">
                     <tr>
                         <th>书名</th>
                         <th>价格</th>
@@ -46,7 +59,6 @@
                 </thead>
                 <tbody id="books">
                 	<%
-                		ArrayList<BookBean> list = bookDb.getAllBooks();
                 		for ( int i = 0 ; i < list.size(); i++){
                 			BookBean book = list.get(i);
                 			out.print("<tr>");
