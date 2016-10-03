@@ -1,0 +1,53 @@
+#frame{
+    padding-left: 400px;
+    padding-top: 100px;
+}
+#userBar{
+    padding-bottom: 20px;
+}
+#cart{
+    padding-bottom: 20px;
+}
+.bookInfo{
+    width: 200px;
+}
+.price{
+    width: 100px;
+}
+.num{
+    width: 100px;
+}
+.part{
+    width: 100px;
+}
+.op{
+    width: 50px;
+}
+.plus{
+    float: left;
+    width: 20px;
+}
+.amend{
+    float: left;
+    width: 30px;
+    text-align: center;
+}
+.cut{
+    float: left;
+    width: 20px;
+}
+
+#bill label{
+    padding-right: 10px;
+}
+#sum{
+    width:100px;
+    display:inline-block;
+    width: 100px;
+}
+#deal{
+    background: orangered;
+}
+.highlight{
+    color: orangered;
+}
