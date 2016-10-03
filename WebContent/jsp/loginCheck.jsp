@@ -9,7 +9,7 @@
 		response.sendRedirect("home.jsp");
 	}else{
 		session.setAttribute("status", "用户名或密码错误");
-		response.sendRedirect("login.jsp");
+		response.sendRedirect(response.encodeRedirectURL("login.jsp"));
 	}
 
 %>

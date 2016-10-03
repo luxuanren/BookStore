@@ -12,7 +12,7 @@
 </head>
 <body>
 	<div id="frame">
-        <form id="registerForm" class="fontType" action="loginCheck.jsp" method="post">
+        <form id="registerForm" class="fontType" action="<%= response.encodeRedirectURL("loginCheck.jsp")%>" method="post">
                 <div class="int" >
                     <label for="username" class="int">用户名：</label>
                     <input name="username" class="required" type="text" value="exuanlu">

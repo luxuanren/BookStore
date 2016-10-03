@@ -8,7 +8,7 @@
 <%
 	if(db.addUser(user)){
 %>	
-		<jsp:forward page="registerStatus.jsp">
+		<jsp:forward page="<%= response.encodeRedirectURL(\"registerStatus.jsp\") %>">
 			<jsp:param value="success" name="status"/>
 		</jsp:forward>	
 		<%

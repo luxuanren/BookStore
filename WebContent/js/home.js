@@ -28,7 +28,7 @@ $(function () {
             $.each(data,function (index,book) {
                 html += '<tr>' +
                         '<td>' + book['title'] + '</td>' +
-                        '<td>￥' + book['price'] + '</td>' +
+                        '<td>￥' + changeTwoDecimal(book['price']).toFixed(2) + '</td>' +
                         '<td>' + book['author'] + '</td>' +
                         '<td>' + book['pulishDate'] + '</td>' +
                         '<td>' + book['amount'] + '</td>' +
@@ -54,5 +54,21 @@ $(function () {
     	$(this).toggleClass('highlight');
     });
     
+    $('.add').click(function(){
+    	var $parent = $(this).parent().parent();
+    	
+    	$.get("../ajax/cartUpdate.jsp",{
+            action : "add" ,
+            bookId : $parent.attr("id") ,
+            title : $parent.find('label[name="name"]').text() ,
+            price : $parent.find('label[name="price"]').text()
+        },function () {
+        	$('#cart').css('color','OrangeRed');
+        })
+    })
+    
+    $('#cart').click(function(){
+    	location.href = "cart.jsp";
+    })
 })
 

@@ -37,7 +37,7 @@ $(function () {
                 $parent.find('.formtips').remove();
                 $parent.append('<span class="formtips onError">'+errorMsg+'</span>');
             }else{
-            	$.get("register_check.jsp",{
+            	$.get("../ajax/register_check.jsp",{
             		"action":"email",email:this.value
             		},function(data, textStatus){
             		if( data == "true" ){
@@ -63,18 +63,21 @@ $(function () {
                 $parent.find('.formtips').remove();
                 $parent.append('<span class="formtips onSuccess">' + okMsg + '</span>');
             }
-        }else if($(this).is('#confirmPassword')) {
-            if ( $('#password').val().length == 0 || this.value != $('#password').val()){
-                errorMsg = "两次输入的密码不一致";
-                $parent.find('.formtips').remove();
-                $parent.append('<span class="formtips onError">' + errorMsg + '</span>');
-            }else {
-                okMsg = "确认通过";
-                $parent.find('.formtips').remove();
-                $parent.append('<span class="formtips onSuccess">' + okMsg + '</span>');
-            }
-        }
+         }
     });
+    
+    $('#confirmPassword').keyup(function(){
+    	var $parent = $(this).parent();
+    	if ( $('#password').val().length == 0 || this.value != $('#password').val()){
+            errorMsg = "两次输入的密码不一致";
+            $parent.find('.formtips').remove();
+            $parent.append('<span class="formtips onError">' + errorMsg + '</span>');
+        }else {
+            okMsg = "确认通过";
+            $parent.find('.formtips').remove();
+            $parent.append('<span class="formtips onSuccess">' + okMsg + '</span>');
+        }
+    })
 
     $('#submitbtn').click(function () {
         $('form .required:input ').trigger('blur');

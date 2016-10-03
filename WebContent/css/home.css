@@ -2,9 +2,10 @@
     height:100%;
     width:100%;
     padding-top: 100px;
-    padding-left: 600px;
+    padding-left: 100px;
     position: fixed;
     border: solid 1px black;
+    overflow-x:scroll;
 }
 #userBar{
     border: solid 1px black;
@@ -23,7 +24,6 @@
 #userBar label{
     float: left;
     width:200px;
-    background: sandybrown;
 }
 th,td{
     width:150px;

@@ -13,10 +13,10 @@
 	<%
 		if("success".equals(status)){
 			out.println("注册成功！");
-			out.println("<a href=\"login.jsp\">马上登录</a>");
+			out.println("<a href=\""+ response.encodeRedirectURL("login.jsp") +"\">马上登录</a>");
 		}else{
 			out.println("注册失败！");
-			out.println("<a href=\"register.jsp\">稍后注册</a>");
+			out.println("<a href=\""+ response.encodeRedirectURL("register.jsp") +"\">稍后注册</a>");
 		}
 	%>
 </body>

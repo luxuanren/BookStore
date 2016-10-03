@@ -1,5 +1,5 @@
 #frame{
-    padding-left: 400px;
+    padding-left: 100px;
     padding-top: 100px;
 }
 #userBar{
@@ -14,13 +14,10 @@
 .price{
     width: 100px;
 }
-.num{
-    width: 100px;
-}
 .part{
     width: 100px;
 }
-.op{
+.delete{
     width: 50px;
 }
 .plus{

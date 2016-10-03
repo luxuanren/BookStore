@@ -11,17 +11,22 @@ public class CartBean {
 	public CartBean() {
 		items = new HashMap<Integer, CartItemBean>();
 	}
-	
+	public HashMap<Integer, CartItemBean> getItems() {
+		return items;
+	}
 	public synchronized void addItem(Integer bookId, BookBean book) {
 		if (!items.containsKey(bookId)) {
 			items.put(bookId, new CartItemBean(book));
 			sum++;
+		}else {
+			setBookQuantity(bookId, items.get(bookId).getQuantity() + 1);
 		}
 	}
 	public synchronized void deleteItem(Integer bookId) {
 		items.remove(bookId);
 		sum--;
 	}
+
 	public synchronized void clear() {
 		items.clear();
 		sum = 0;

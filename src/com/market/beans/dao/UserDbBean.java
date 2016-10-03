@@ -26,11 +26,7 @@ public class UserDbBean extends DbBean{
 			ps.setString(1, username);
 			ps.setString(2, password);
 			rs = ps.executeQuery();
-			boolean result = rs.next();
-			closeConnection(connection);
-			closePreparedStatement(ps);
-			closeResultSet(rs);
-			return result;
+			return rs.next();
 		} catch (SQLException e) {
 			System.out.println("find username failed");
 			e.printStackTrace();
@@ -50,10 +46,8 @@ public class UserDbBean extends DbBean{
 			connection = dataSource.getConnection();
 			ps = connection.prepareStatement(sql);
 			ps.setString(1, username);
-			rs = ps.executeQuery();
-			boolean result = rs.getRow() > 0;
-			
-			return result;
+			rs = ps.executeQuery();			
+			return rs.next();
 		} catch (SQLException e) {
 			System.out.println("find username failed");
 			e.printStackTrace();
@@ -74,9 +68,7 @@ public class UserDbBean extends DbBean{
 			ps = connection.prepareStatement(sql);
 			ps.setString(1, email);
 			rs = ps.executeQuery();
-			boolean result = rs.getRow() > 0;
-			
-			return result;
+			return rs.next();
 		} catch (SQLException e) {
 			System.out.println("find email failed");
 			e.printStackTrace();
@@ -98,7 +90,6 @@ public class UserDbBean extends DbBean{
 			ps.setString(2, user.getEmail());
 			ps.setString(3, user.getPassword());
 			ps.execute();
-			
 			return true;
 		} catch (SQLException e) {
 			System.out.println("add user failed");

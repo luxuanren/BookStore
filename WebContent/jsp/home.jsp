@@ -1,4 +1,5 @@
 <%@page import="com.market.beans.BookBean"%>
+<%@page import="java.text.DecimalFormat"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -30,16 +31,17 @@
 <title>欢迎光临书城</title>
     <link rel="stylesheet" href="../css/home.css">
     <script src="../js/jquery-3.1.0.min.js"></script>
+    <script src="../js/common.js"></script>
     <script src="../js/home.js"></script>
 </head>
 <body>
 	<div id="frame">
         <div id="userBar">
             <label id="loginStatus" class="<%= status%>"><u><%= username%></u></label>
-            <label>购物车</label>
+            <label id="cart"><u>购物车</u></label>
         </div>
         <div id="searchBar">
-        	<form action="home.jsp">
+        	<form action="<%= response.encodeRedirectURL("home.jsp") %>">
         		<input id="input" name="key" type="text">
 	            <input id="doSearch" type="submit" value="搜索">
 	            <input id="showAll" type="button" value="显示所有图书">
@@ -59,15 +61,16 @@
                 </thead>
                 <tbody id="books">
                 	<%
+                	    DecimalFormat df = new DecimalFormat("#.00");
                 		for ( int i = 0 ; i < list.size(); i++){
                 			BookBean book = list.get(i);
-                			out.print("<tr>");
+                			out.print("<tr id=\""+ book.getId() +"\">");
                 			out.print("<td><label name=\"name\">"+book.getTitle()+"</label></td>");
-                			out.print("<td><label name=\"price\"> ￥"+book.getPrice()+"</label></td>");
+                			out.print("<td>￥<label name=\"price\">"+df.format(book.getPrice())+"</label></td>");
                 			out.print("<td><label name=\"author\">"+book.getAuthor()+"</label></td>");
                 			out.print("<td><label name=\"publish\">"+book.getPulishDate().toString()+"</label></td>");
                 			out.print("<td><label name=\"amount\">"+book.getAmount()+"</label></td>");
-                			out.print("<td><input type=\"button\" value=\"加入购物车\"></td>");
+                			out.print("<td><input class=\"add\" type=\"button\" value=\"加入购物车\"></td>");
                 			out.print("</tr>");
                 		}
                 	%>

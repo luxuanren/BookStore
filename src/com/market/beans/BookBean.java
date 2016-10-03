@@ -12,6 +12,16 @@ public class BookBean implements Serializable{
 	private Date pulishDate;
 	private float price;
 	private int amount;
+	
+	public BookBean() {
+		// TODO Auto-generated constructor stub
+	}
+	public BookBean(int id, String title, float price) {
+		this.id = id;
+		this.title = title;
+		this.price = price;
+	}
+	
 	public int getId() {
 		return id;
 	}

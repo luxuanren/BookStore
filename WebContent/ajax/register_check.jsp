@@ -6,7 +6,6 @@
 	if("username".equals(action)){
 		String username = request.getParameter("username");
 		String result = null;
-		System.out.print(username);
 		if(userDb.findUsername(username)){
 			result = "false";
 		}else{
@@ -18,9 +17,7 @@
 	}
 	if("email".equals(action)){
 		String email = request.getParameter("email");
-		System.out.print(email);
 		String result = null;
-		System.out.print(email);
 		if(userDb.findEmail(email)){
 			result = "false";
 		}else{

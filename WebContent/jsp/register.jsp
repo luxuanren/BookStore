@@ -14,7 +14,7 @@
 </head>
 <body>
 	 <div id="frame">
-        <form id="registerForm" class="fontType" action="createUser.jsp" method="get">
+        <form id="registerForm" class="fontType" action="<%= response.encodeRedirectURL("createUser.jsp") %>" method="get">
         		<div class="int" >
                     <label for="username" class="int">用户名：</label>
                     <input id="username" name="username" class="required" type="text">
