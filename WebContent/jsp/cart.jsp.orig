@@ -31,7 +31,7 @@
                     <td class="price">价格</td>
                     <td class="num">数量</td>
                     <td class="part">小计</td>
-                    <td class="op">删除</td>
+                    <td class="op">操作</td>
                 </tr>
             </thead>
             <tbody>
@@ -45,7 +45,11 @@
                 	CartItemBean cartItem = map.get(key);
                 	BookBean book = cartItem.getBook();
                 	
+<<<<<<< 4cc60cfa5de2e07e0b99945732bd3e7b021ec77d
+                	out.print("<tr id=\""+ book.getId() +"\">");
+=======
                 	out.print("<tr id=\""+ book.getId() +"\" amount=\""+ book.getAmount() +"\">");
+>>>>>>> complete cart module's function
         			out.print("<td><input type=\"checkbox\"></td>");
         			out.print("<td><label class=\"name\">"+book.getTitle()+"</label></td>");
         			out.print("<td><b>￥</b><b class=\"price\">"+df.format(book.getPrice())+"</b></td>");
@@ -65,7 +69,7 @@
             
         </table>
         <div id="bill">
-            <label>已选商品</label><b id="itemSum" class="highlight">0</b><label> 件</label>
+            <label>已选商品</label><b id="itemSum" class="highlight">0</b><label> 件 </label>
             <label>共计:</label>
             <b class="highlight">￥</b>
             <b id="sum" class="highlight">0.00</b>

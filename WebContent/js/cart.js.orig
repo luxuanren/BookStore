@@ -61,8 +61,13 @@ $(function () {
     $('.cut').click(function () {
     	var $parent = $(this).parent().parent();
         var num = $parent.find('.amend').val();
+<<<<<<< 4cc60cfa5de2e07e0b99945732bd3e7b021ec77d
+        if (num > 1){
+            updateCart('update',$parent.attr('id'), --num, $parent);
+=======
         if ( num > 1 ){
         	updateCart('update',$parent.attr('id'), --num, $parent);
+>>>>>>> complete cart module's function
         }
     })
 
@@ -98,6 +103,8 @@ $(function () {
 })
 
 function updateCart(action, bookId, num, $parent) {
+<<<<<<< 4cc60cfa5de2e07e0b99945732bd3e7b021ec77d
+=======
 	// deal cut and plus button
 	if (parseInt(num) >= parseInt($parent.attr('amount'))){
 		num = $parent.attr('amount');
@@ -111,6 +118,7 @@ function updateCart(action, bookId, num, $parent) {
 		$parent.find('.cut').removeAttr('disabled');
 	}
 	
+>>>>>>> complete cart module's function
     $.get("../ajax/cartUpdate.jsp",{
         action : action ,
         bookId : bookId ,

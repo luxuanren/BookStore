@@ -28,7 +28,7 @@ $(function () {
             $.each(data,function (index,book) {
                 html += '<tr>' +
                         '<td>' + book['title'] + '</td>' +
-                        '<td>'+ changeTwoDecimal(book['price']).toFixed(2) + '</td>' +
+                        '<td>￥' + changeTwoDecimal(book['price']).toFixed(2) + '</td>' +
                         '<td>' + book['author'] + '</td>' +
                         '<td>' + book['pulishDate'] + '</td>' +
                         '<td>' + book['amount'] + '</td>' +
@@ -61,8 +61,12 @@ $(function () {
             action : "add" ,
             bookId : $parent.attr("id") ,
             title : $parent.find('label[name="name"]').text() ,
+<<<<<<< 4cc60cfa5de2e07e0b99945732bd3e7b021ec77d
+            price : $parent.find('label[name="price"]').text()
+=======
             price : $parent.find('label[name="price"]').text(),
             amount : $parent.find('label[name="amount"]').text()
+>>>>>>> complete cart module's function
         },function () {
         	$('#cart').css('color','OrangeRed');
         })

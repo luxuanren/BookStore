@@ -19,11 +19,15 @@ public class CartBean {
 			items.put(bookId, new CartItemBean(book));
 			sum++;
 		}else {
+<<<<<<< 4cc60cfa5de2e07e0b99945732bd3e7b021ec77d
+			setBookQuantity(bookId, items.get(bookId).getQuantity() + 1);
+=======
 			CartItemBean item = items.get(bookId);
 			int num = item.getQuantity();
 			if ( num < item.getBook().getAmount()){
 				setBookQuantity(bookId, num + 1);
 			}
+>>>>>>> complete cart module's function
 		}
 	}
 	public synchronized void deleteItem(Integer bookId) {

@@ -16,8 +16,9 @@
 		String title = request.getParameter("title");
 		title = new String(title.getBytes("ISO-8859-1"),"UTF-8");
 		String price = request.getParameter("price");
+		String amount = request.getParameter("amount");
 		int id = Integer.valueOf(bookId);
-		cart.addItem(id,new BookBean(id, title, Float.valueOf(price)));
+		cart.addItem(id,new BookBean(id, title, Float.valueOf(price), Integer.valueOf(amount)));
 	}
 	out.print("success");
 	
