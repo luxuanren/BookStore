@@ -99,8 +99,10 @@ $(function () {
     		var $parent = $(this).parent().parent();
     		var bookid = $parent.attr('id');
     		var num = $parent.find('.amend').val();
+    		var title = $parent.find('.name').text();
     		json += '{"bookid":' + bookid + ',';
-    		json += '"num":' + num + '},';
+    		json += '"num":' + num + ',';
+    		json += '"title":\"' + title + '\"},';
     	})
     	json = json.replace(/,$/,']');
     	var $form = $('<form action=\'trade.jsp?data=' + json +  '\' method=\'post\'></form>');

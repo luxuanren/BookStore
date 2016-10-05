@@ -15,9 +15,9 @@ public class InsufficientException extends Exception {
 	}
 	@Override
 	public String toString() {
-		StringBuffer sb = new StringBuffer("<p>由于以下问题，请确认并修改订单。</p>");
+		StringBuffer sb = new StringBuffer("<p>以下图书库存不足，请更新页面确认。</p>");
 		for (TradeItem tradeItem : list) {
-			sb.append("<p>[" + tradeItem.getTitle() + "] 库存为：" + tradeItem.getNum()).append("</p>");
+			sb.append("<p>[").append(tradeItem.getTitle()).append("]</p>");
 		}
 		return sb.toString();
 	}

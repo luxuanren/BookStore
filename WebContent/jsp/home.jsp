@@ -62,7 +62,7 @@
                 </thead>
                 <tbody id="books">
                 	<%
-                		cart.updateBookAccountInNormal(list);
+                		cart.updateBookAccount(list);
                 	    DecimalFormat df = new DecimalFormat("#.00");
                 		for ( int i = 0 ; i < list.size(); i++){
                 			BookBean book = list.get(i);

@@ -9,6 +9,7 @@
 <jsp:useBean id="cart" class="com.market.beans.CartBean" scope="session"></jsp:useBean>
 <%
 	String json = request.getParameter("data");
+	json = new String(json.getBytes("ISO-8859-1"),"UTF-8");
 	Gson gson = new Gson();
 	ArrayList<TradeItem> list = gson.fromJson(json, new TypeToken<ArrayList<TradeItem>>(){}.getType());
 	
@@ -21,7 +22,6 @@
 		}
 		
 	}catch(InsufficientException e){
-		cart.updateBookAccountInException(e.getList());
 		session.setAttribute("cause", e.toString());
 		response.sendRedirect(response.encodeRedirectURL("../errorPage/InSufficientError.jsp")); 
 	}

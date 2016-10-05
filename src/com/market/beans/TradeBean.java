@@ -21,8 +21,7 @@ public class TradeBean extends DbBean implements Serializable{
 	private static final long serialVersionUID = 4463855141235489941L;
 	
 	public boolean dealTrade(ArrayList<TradeItem> list) throws InsufficientException {
-		String sql = "select title,amount from book where id=?";
-		String updateSql = "update book set amount=? where id=?";
+		String updateSql = "update book set amount=amount-? where id=? and amount-?>0";
 		Connection connection = null;
 		PreparedStatement ps = null;
 		PreparedStatement updatePs = null;
@@ -34,36 +33,23 @@ public class TradeBean extends DbBean implements Serializable{
 			connection = dataSource.getConnection();
 			connection.setAutoCommit(false);
 			connection.setTransactionIsolation(Connection.TRANSACTION_REPEATABLE_READ);
-			ps = connection.prepareStatement(sql);
 			updatePs = connection.prepareStatement(updateSql);
 			
-			String name;
-			int sum ;
 			int num ;
 			int id;
 			for (TradeItem tradeItem : list) {
 				id = tradeItem.getBookid();
-				ps.setInt(1, id);
-				rs = ps.executeQuery();
-				if ( rs.next() ){
-					name = rs.getString(1);
-					sum = rs.getInt(2);
-				}else {
-					inSufList.add(tradeItem);
-					isExistInSufficient = true;
+				num = tradeItem.getNum();
+				updatePs.setInt(1, num);
+				updatePs.setInt(2, id);
+				updatePs.setInt(3, num);
+				int status = updatePs.executeUpdate();
+				if ( status == 1 ){
 					continue;
 				}
-				num = tradeItem.getNum();
-				if( num <= sum){
-					updatePs.setInt(1, sum - num);
-					updatePs.setInt(2, id);
-					updatePs.executeUpdate();
-				}else {
-					tradeItem.setNum(sum);
-					tradeItem.setTitle(name);
-					inSufList.add(tradeItem);
-					isExistInSufficient = true;
-				}
+				inSufList.add(tradeItem);
+				isExistInSufficient = true;
+				
 			}
 			if (isExistInSufficient) {
 				throw new InsufficientException(inSufList);
