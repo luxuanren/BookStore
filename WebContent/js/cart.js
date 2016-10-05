@@ -103,19 +103,13 @@ $(function () {
     		json += '"num":' + num + '},';
     	})
     	json = json.replace(/,$/,']');
-    	
-    	$.post('trade.jsp',{
-    		data : json
-    	},function(data){
-    		if( 'success' == data){
-    			alert('下单成功！');
-    			location.href = 'home.jsp';
-    		}else{
-    			location.href = data;
-    		}
-    	
-    	},'text');
+    	var $form = $('<form action=\'trade.jsp?data=' + json +  '\' method=\'post\'></form>');
+    	$form.trigger('submit');
     })
+    
+    if ($('#cart').attr('title') == 'success'){
+    	alert('下单成功！');
+    }
 })
 
 function updateCart(action, bookId, num, $parent) {

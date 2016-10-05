@@ -9,7 +9,7 @@
 </head>
 <body>
 	<div>
-        <a href="../jsp/home.jsp">返回购物车</a>
+        <a href="../jsp/cart.jsp">返回购物车</a>
         <a href="../jsp/home.jsp">返回主页</a>
     </div>
     <div>

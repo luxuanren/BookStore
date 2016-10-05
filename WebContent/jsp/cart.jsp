@@ -6,6 +6,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <jsp:useBean id="cart" class="com.market.beans.CartBean" scope="session"></jsp:useBean>
+<%
+	String status = (String)session.getAttribute("status");
+	if ( status == null){
+		status = "";
+	}else{
+		session.removeAttribute("status");
+	}
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -23,7 +31,7 @@
             <label id="user" class="hover"><u>用户</u></label>
             <a href="home.jsp" class="hover">返回主页</a>
         </div>
-        <table id="cart">
+        <table id="cart" title="<%=  status%>">
             <thead>
                 <tr>
                     <td><input type="checkbox" id="selectAll"><label for="selectAll"></label></td>

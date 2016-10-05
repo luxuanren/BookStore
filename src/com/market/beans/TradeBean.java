@@ -28,7 +28,7 @@ public class TradeBean extends DbBean implements Serializable{
 		PreparedStatement updatePs = null;
 		ResultSet rs = null;
 		boolean isExistInSufficient = false;
-		ArrayList<String> inSufList = new ArrayList<String>();
+		ArrayList<TradeItem> inSufList = new ArrayList<TradeItem>();
 		
 		try {
 			connection = dataSource.getConnection();
@@ -49,7 +49,7 @@ public class TradeBean extends DbBean implements Serializable{
 					name = rs.getString(1);
 					sum = rs.getInt(2);
 				}else {
-					inSufList.add(new String("图书号 ：" + id + " 没有库存。"));
+					inSufList.add(tradeItem);
 					isExistInSufficient = true;
 					continue;
 				}
@@ -59,7 +59,9 @@ public class TradeBean extends DbBean implements Serializable{
 					updatePs.setInt(2, id);
 					updatePs.executeUpdate();
 				}else {
-					inSufList.add(new String(name + " 库存不足，当前库存为 ：" + sum));
+					tradeItem.setNum(sum);
+					tradeItem.setTitle(name);
+					inSufList.add(tradeItem);
 					isExistInSufficient = true;
 				}
 			}

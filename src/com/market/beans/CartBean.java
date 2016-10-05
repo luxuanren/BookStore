@@ -54,7 +54,18 @@ public class CartBean {
 			}
 		}
 	}
-	public void updateBookAccount(ArrayList<BookBean> list) {
+	// used in insufficient case
+	public void updateBookAccountInException(ArrayList<TradeItem> list) {
+		for (TradeItem tradeItem : list) {
+			int id = tradeItem.getBookid();
+			if (items.containsKey(id)) {
+				items.get(id).setQuantity(tradeItem.getNum());
+				items.get(id).getBook().setAmount(tradeItem.getNum());
+			}
+		}
+	}
+	// used in normal case
+	public void updateBookAccountInNormal(ArrayList<BookBean> list) {
 		for (BookBean bookBean : list) {
 			int id = bookBean.getId();
 			if (items.containsKey(id)) {
