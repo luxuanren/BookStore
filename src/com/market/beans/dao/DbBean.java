@@ -49,4 +49,13 @@ public class DbBean {
 			}
 		}
 	}
+	protected void rollBack(Connection connection) {
+		if (connection != null) {
+			try {
+				connection.rollback();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 }

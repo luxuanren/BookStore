@@ -21,6 +21,12 @@ $(function () {
 		}
 	});
 
+	$('#books label[name=amount]').each(function(){
+		if ( $(this).text() == 0 ){
+			$(this).parent().parent().find('.add').attr({"disabled":"disabled"});
+		}
+	})
+	
     $('#showAll').click(function () {
         $.post("../ajax/getAllbooks.jsp",function (data) {
             $('#books').empty();

@@ -31,10 +31,6 @@ $(function () {
         $(this).toggleClass('highlight');
     })
 
-    $('#back').click(function () {
-        location.href = 'home.jsp';
-    })
-
     $('#cart tbody :checkbox').click(function () {
         if ($(this).prop('checked') == true){
             $('#deal').removeAttr('disabled');
@@ -94,6 +90,31 @@ $(function () {
     $('.delete').click(function () {
     	var $parent = $(this).parent().parent();
         updateCart('delete',$parent.attr('id'), 0, $parent);
+    })
+    
+    $('#deal').click(function(){
+    	var $list = $('#cart tbody :checkbox:checked');
+    	var json = '[';
+    	$.each($list,function(){
+    		var $parent = $(this).parent().parent();
+    		var bookid = $parent.attr('id');
+    		var num = $parent.find('.amend').val();
+    		json += '{"bookid":' + bookid + ',';
+    		json += '"num":' + num + '},';
+    	})
+    	json = json.replace(/,$/,']');
+    	
+    	$.post('trade.jsp',{
+    		data : json
+    	},function(data){
+    		if( 'success' == data){
+    			alert('下单成功！');
+    			location.href = 'home.jsp';
+    		}else{
+    			location.href = data;
+    		}
+    	
+    	},'text');
     })
 })
 

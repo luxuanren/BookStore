@@ -4,6 +4,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <jsp:useBean id="bookDb" class="com.market.beans.dao.BookDbBean" scope="request"></jsp:useBean>
+<jsp:useBean id="cart" class="com.market.beans.CartBean" scope="session"></jsp:useBean>
 <%
 
 	String username = (String)session.getAttribute("username");
@@ -61,6 +62,7 @@
                 </thead>
                 <tbody id="books">
                 	<%
+                		cart.updateBookAccount(list);
                 	    DecimalFormat df = new DecimalFormat("#.00");
                 		for ( int i = 0 ; i < list.size(); i++){
                 			BookBean book = list.get(i);

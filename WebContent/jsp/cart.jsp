@@ -21,7 +21,7 @@
     <div id="frame">
         <div id="userBar">
             <label id="user" class="hover"><u>用户</u></label>
-            <label id="back" class="hover"><u>返回主页</u></label>
+            <a href="home.jsp" class="hover">返回主页</a>
         </div>
         <table id="cart">
             <thead>

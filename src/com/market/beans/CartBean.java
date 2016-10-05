@@ -1,7 +1,7 @@
 package com.market.beans;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 
 public class CartBean {
 	
@@ -30,7 +30,14 @@ public class CartBean {
 		items.remove(bookId);
 		sum--;
 	}
-
+	
+	public synchronized void deleteItems(ArrayList<TradeItem> list) {
+		for (TradeItem tradeItem : list) {
+			items.remove(tradeItem.getBookid());
+			sum--;
+		}
+	}
+	
 	public synchronized void clear() {
 		items.clear();
 		sum = 0;
@@ -47,14 +54,12 @@ public class CartBean {
 			}
 		}
 	}
-	public synchronized float getTotalPrice() {
-		float sum = 0;
-		Iterator<Integer> iterator = items.keySet().iterator();
-		while (iterator.hasNext()) {
-			Integer integer = (Integer) iterator.next();
-			CartItemBean cartItem = items.get(integer);
-			sum += cartItem.getQuantity() * cartItem.getBook().getPrice();
+	public void updateBookAccount(ArrayList<BookBean> list) {
+		for (BookBean bookBean : list) {
+			int id = bookBean.getId();
+			if (items.containsKey(id)) {
+				items.get(id).getBook().setAmount(bookBean.getAmount());
+			}
 		}
-		return sum;
 	}
 }
