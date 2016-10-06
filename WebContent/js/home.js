@@ -34,7 +34,7 @@ $(function () {
             $.each(data,function (index,book) {
                 html += '<tr>' +
                         '<td>' + book['title'] + '</td>' +
-                        '<td>'+ changeTwoDecimal(book['price']).toFixed(2) + '</td>' +
+                        '<td>￥'+ changeTwoDecimal(book['price']).toFixed(2) + '</td>' +
                         '<td>' + book['author'] + '</td>' +
                         '<td>' + book['pulishDate'] + '</td>' +
                         '<td>' + book['amount'] + '</td>' +

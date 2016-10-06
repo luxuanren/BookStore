@@ -1,19 +1,19 @@
+<%@page import="com.market.beans.TradeItem"%>
 <%@page import="java.text.DecimalFormat"%>
 <%@page import="com.market.beans.BookBean"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="com.market.beans.CartItemBean"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <jsp:useBean id="cart" class="com.market.beans.CartBean" scope="session"></jsp:useBean>
-<%
-	String status = (String)session.getAttribute("status");
-	if ( status == null){
-		status = "";
-	}else{
-		session.removeAttribute("status");
-	}
-%>
+<c:set var="status" value="${sessionScope.status }" scope="page"></c:set>
+<c:if test="${sessionScope.status != null }">
+	<c:remove var="status" scope="session"/>
+</c:if>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -31,7 +31,7 @@
             <label id="user" class="hover"><u>用户</u></label>
             <a href="home.jsp" class="hover">返回主页</a>
         </div>
-        <table id="cart" title="<%=  status%>">
+        <table id="cart" title=<c:out value="${status }" default=""/>>
             <thead>
                 <tr>
                     <td><input type="checkbox" id="selectAll"><label for="selectAll"></label></td>
@@ -43,32 +43,26 @@
                 </tr>
             </thead>
             <tbody>
-            <%
-            	HashMap<Integer, CartItemBean> map = cart.getItems();
-                Iterator<Integer> iterator = map.keySet().iterator();
-                DecimalFormat df = new DecimalFormat("#.00");
-                    		
-                while(iterator.hasNext()){
-                	Integer key = (Integer) iterator.next();
-                	CartItemBean cartItem = map.get(key);
-                	BookBean book = cartItem.getBook();
-                	
-                	out.print("<tr id=\""+ book.getId() +"\" amount=\""+ book.getAmount() +"\">");
-        			out.print("<td><input type=\"checkbox\"></td>");
-        			out.print("<td><label class=\"name\">"+book.getTitle()+"</label></td>");
-        			out.print("<td><b>￥</b><b class=\"price\">"+df.format(book.getPrice())+"</b></td>");
-        			
-        			out.print("<td><input class=\"cut\" type=\"button\" value=\"-\">");
-        			out.print("<input class=\"amend\" type=\"text\" value=\""+ cartItem.getQuantity() +"\">");
-        			out.print("<input class=\"plus\" type=\"button\" value=\"+\"></td>");
-        			
-        			out.print("<td> <b class=\"highlight\">￥</b> <b class=\"part highlight\">"+
-        					df.format(cartItem.getQuantity() * book.getPrice()) +"</b></td>");
-        			
-        			out.print("<td><label class=\"delete hover\"><u>删除</u></label></td>");
-        			out.print("</tr>");
-                }
-            %>
+				<c:forEach var="entry" items="${cart.items}">
+					<tr id="${entry.value.book.id}" amount="${entry.value.book.amount }">
+						<td><input type="checkbox"></td>
+						<td><label class="name">${entry.value.book.title}</label></td>
+						<td><b>￥</b><b class="price"><fmt:formatNumber 
+						value="${entry.value.book.price}" pattern=".00"/></b></td>
+						<td>
+							<input class="cut" type="button" value="-">
+							<input class="amend" type="text" value="${entry.value.quantity }">
+							<input class="plus" type="button" value="+">
+						</td>
+						<td>
+							<b class="highlight">￥</b>
+							<b class="part highlight">
+						<fmt:formatNumber value="${entry.value.book.price * entry.value.quantity}" pattern=".00"/>
+							</b>
+						</td>
+						<td><label class="delete hover"><u>删除</u></label></td>
+					</tr>
+				</c:forEach>            
             </tbody>
             
         </table>

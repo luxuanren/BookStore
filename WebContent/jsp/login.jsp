@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%
-    	String status = (String)session.getAttribute("status");
-    %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -22,7 +20,7 @@
                     <input name="password" class="required" type="password" value="123">
                 </div>
                 <div class="sub">
-                <p class="int" id="tips"><%= status == null ? "": status%></p>
+                <p class="int" id="tips"><c:out value="${sessionScope.status }" default=""/></p>
                     <input id="submitbtn" type="submit" value="登录" >
                 </div>
         </form>

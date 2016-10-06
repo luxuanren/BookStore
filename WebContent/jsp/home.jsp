@@ -1,6 +1,8 @@
 <%@page import="com.market.beans.BookBean"%>
 <%@page import="java.text.DecimalFormat"%>
 <%@page import="java.util.ArrayList"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <jsp:useBean id="bookDb" class="com.market.beans.dao.BookDbBean" scope="request"></jsp:useBean>
@@ -23,6 +25,8 @@
 	}else{
 		list = bookDb.getAllBooks();
 	}
+	
+	cart.updateBookAccount(list);
 	
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -61,21 +65,18 @@
                     </tr>
                 </thead>
                 <tbody id="books">
-                	<%
-                		cart.updateBookAccount(list);
-                	    DecimalFormat df = new DecimalFormat("#.00");
-                		for ( int i = 0 ; i < list.size(); i++){
-                			BookBean book = list.get(i);
-                			out.print("<tr id=\""+ book.getId() +"\">");
-                			out.print("<td><label name=\"name\">"+book.getTitle()+"</label></td>");
-                			out.print("<td>￥<label name=\"price\">"+df.format(book.getPrice())+"</label></td>");
-                			out.print("<td><label name=\"author\">"+book.getAuthor()+"</label></td>");
-                			out.print("<td><label name=\"publish\">"+book.getPulishDate().toString()+"</label></td>");
-                			out.print("<td><label name=\"amount\">"+book.getAmount()+"</label></td>");
-                			out.print("<td><input class=\"add\" type=\"button\" value=\"加入购物车\"></td>");
-                			out.print("</tr>");
-                		}
-                	%>
+                	<c:forEach var="item" items="<%= list %>">
+						<tr id="${item.id}">
+							<td><label name="name">${item.title}</label></td>
+							<td>￥<label name="price"><fmt:formatNumber 
+							value="${item.price}" pattern=".00"/></label></td>
+							<td><label name="author">${item.author}</label></td>
+							<td><label name="publish"><fmt:formatDate value="${item.pulishDate }" pattern="yyyy-MM-dd"/></label></td>
+							<td><label name="amount">${item.amount}</label></td>
+							<td><input class="add" type="button" value="加入购物车"></td>
+						</tr>
+					</c:forEach>    
+                	
                 </tbody>
             </table>
         </div>

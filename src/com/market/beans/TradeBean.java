@@ -21,7 +21,7 @@ public class TradeBean extends DbBean implements Serializable{
 	private static final long serialVersionUID = 4463855141235489941L;
 	
 	public boolean dealTrade(ArrayList<TradeItem> list) throws InsufficientException {
-		String updateSql = "update book set amount=amount-? where id=? and amount-?>0";
+		String updateSql = "update book set amount=amount-? where id=? and amount-?>=0";
 		Connection connection = null;
 		PreparedStatement ps = null;
 		PreparedStatement updatePs = null;
